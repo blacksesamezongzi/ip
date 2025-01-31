@@ -1,11 +1,12 @@
 package components;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import Exceptions.*;
 
 public class AdventureGuideBot {
-    private Task[] tasks = new Task[100];
-    private int taskCount = 0;
+    private List<Task> tasks = new ArrayList<>();
 
     public void start() {
         Scanner sc = new Scanner(System.in);
@@ -32,6 +33,8 @@ public class AdventureGuideBot {
                     handleDeadline(input);
                 } else if (input.startsWith("event ")) {
                     handleEvent(input);
+                } else if (input.startsWith("delete ")) {
+                    handleDelete(input);
                 } else {
                     throw new UnknownCommandException();
                 }
@@ -58,19 +61,19 @@ public class AdventureGuideBot {
     private void handleList() {
         System.out.println("____________________________________________________________");
         System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(" " + (i + 1) + ". " + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(" " + (i + 1) + ". " + tasks.get(i));
         }
         System.out.println("____________________________________________________________");
     }
 
     private void handleMark(String input) throws InvalidTaskNumberException {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        if (taskIndex >= 0 && taskIndex < taskCount) {
-            tasks[taskIndex].markAsDone();
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            tasks.get(taskIndex).markAsDone();
             System.out.println("____________________________________________________________");
             System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("   " + tasks[taskIndex]);
+            System.out.println("   " + tasks.get(taskIndex));
             System.out.println("____________________________________________________________");
         } else {
             throw new InvalidTaskNumberException();
@@ -79,11 +82,11 @@ public class AdventureGuideBot {
 
     private void handleUnmark(String input) throws InvalidTaskNumberException {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        if (taskIndex >= 0 && taskIndex < taskCount) {
-            tasks[taskIndex].markAsNotDone();
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            tasks.get(taskIndex).markAsNotDone();
             System.out.println("____________________________________________________________");
             System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println("   " + tasks[taskIndex]);
+            System.out.println("   " + tasks.get(taskIndex));
             System.out.println("____________________________________________________________");
         } else {
             throw new InvalidTaskNumberException();
@@ -95,12 +98,11 @@ public class AdventureGuideBot {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("todo");
         } else {
-            tasks[taskCount] = new ToDo(description);
-            taskCount++;
+            tasks.add(new ToDo(description));
             System.out.println("____________________________________________________________");
             System.out.println(" Got it. I've added this task:");
-            System.out.println("   " + tasks[taskCount - 1]);
-            System.out.println(" Now you have " + taskCount + " tasks in the list.");
+            System.out.println("   " + tasks.get(tasks.size() - 1));
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
         }
     }
@@ -112,12 +114,11 @@ public class AdventureGuideBot {
         if (description.isEmpty() || by.isEmpty()) {
             throw new EmptyDescriptionException("deadline");
         }
-        tasks[taskCount] = new Deadline(description, by);
-        taskCount++;
+        tasks.add(new Deadline(description, by));
         System.out.println("____________________________________________________________");
         System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + tasks[taskCount - 1]);
-        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+        System.out.println("   " + tasks.get(tasks.size() - 1));
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
@@ -129,12 +130,25 @@ public class AdventureGuideBot {
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new EmptyDescriptionException("event");
         }
-        tasks[taskCount] = new Event(description, from, to);
-        taskCount++;
+        tasks.add(new Event(description, from, to));
         System.out.println("____________________________________________________________");
         System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + tasks[taskCount - 1]);
-        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+        System.out.println("   " + tasks.get(tasks.size() - 1));
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+    }
+
+    private void handleDelete(String input) throws InvalidTaskNumberException {
+        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task removedTask = tasks.remove(taskIndex);
+            System.out.println("____________________________________________________________");
+            System.out.println(" Noted. I've removed this task:");
+            System.out.println("   " + removedTask);
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
+        } else {
+            throw new InvalidTaskNumberException();
+        }
     }
 }
