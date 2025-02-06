@@ -1,27 +1,31 @@
 package components;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from);
+        this.to = LocalDateTime.parse(to);
     }
 
     public Event(String description, String from, String to, boolean isDone) {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from);
+        this.to = LocalDateTime.parse(to);
     }
 
     public String getFrom() {
-        return from;
+        return from.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 
     public String getTo() {
-        return to;
+        return to.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 
     @Override
