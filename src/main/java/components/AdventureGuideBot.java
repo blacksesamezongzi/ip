@@ -1,12 +1,26 @@
 package components;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import Exceptions.*;
+import data.Storage;
 
 public class AdventureGuideBot {
     private List<Task> tasks = new ArrayList<>();
+    private Storage storage;
+
+    public AdventureGuideBot() {
+        this.storage = new Storage();
+        try {
+            this.tasks = storage.load();
+        } catch (Exception e) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" OOPS!!! An error occurred while loading tasks from file.");
+            System.out.println("____________________________________________________________");
+        }
+    }
 
     public void start() {
         Scanner sc = new Scanner(System.in);
@@ -67,7 +81,7 @@ public class AdventureGuideBot {
         System.out.println("____________________________________________________________");
     }
 
-    private void handleMark(String input) throws InvalidTaskNumberException {
+    private void handleMark(String input) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).markAsDone();
@@ -75,12 +89,13 @@ public class AdventureGuideBot {
             System.out.println(" Nice! I've marked this task as done:");
             System.out.println("   " + tasks.get(taskIndex));
             System.out.println("____________________________________________________________");
+            storage.save(tasks);
         } else {
             throw new InvalidTaskNumberException();
         }
     }
 
-    private void handleUnmark(String input) throws InvalidTaskNumberException {
+    private void handleUnmark(String input) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             tasks.get(taskIndex).markAsNotDone();
@@ -88,12 +103,13 @@ public class AdventureGuideBot {
             System.out.println(" OK, I've marked this task as not done yet:");
             System.out.println("   " + tasks.get(taskIndex));
             System.out.println("____________________________________________________________");
+            storage.save(tasks);
         } else {
             throw new InvalidTaskNumberException();
         }
     }
 
-    private void handleTodo(String input) throws EmptyDescriptionException {
+    private void handleTodo(String input) throws EmptyDescriptionException, IOException {
         String description = input.substring(5).trim();
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("todo");
@@ -104,10 +120,11 @@ public class AdventureGuideBot {
             System.out.println("   " + tasks.get(tasks.size() - 1));
             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
+            storage.save(tasks);
         }
     }
 
-    private void handleDeadline(String input) throws EmptyDescriptionException {
+    private void handleDeadline(String input) throws EmptyDescriptionException, IOException {
         String[] parts = input.substring(9).split(" /by ");
         String description = parts[0].trim();
         String by = parts[1].trim();
@@ -120,9 +137,10 @@ public class AdventureGuideBot {
         System.out.println("   " + tasks.get(tasks.size() - 1));
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+        storage.save(tasks);
     }
 
-    private void handleEvent(String input) throws EmptyDescriptionException {
+    private void handleEvent(String input) throws EmptyDescriptionException, IOException {
         String[] parts = input.substring(6).split(" /from | /to ");
         String description = parts[0].trim();
         String from = parts[1].trim();
@@ -136,9 +154,10 @@ public class AdventureGuideBot {
         System.out.println("   " + tasks.get(tasks.size() - 1));
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+        storage.save(tasks);
     }
 
-    private void handleDelete(String input) throws InvalidTaskNumberException {
+    private void handleDelete(String input) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task removedTask = tasks.remove(taskIndex);
@@ -147,6 +166,7 @@ public class AdventureGuideBot {
             System.out.println("   " + removedTask);
             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
+            storage.save(tasks);
         } else {
             throw new InvalidTaskNumberException();
         }
