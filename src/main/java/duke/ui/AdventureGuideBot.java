@@ -40,33 +40,33 @@ public class AdventureGuideBot {
                 String commandWord = parsedCommand[0];
                 String commandArgs = parsedCommand[1];
                 switch (commandWord) {
-                    case "bye":
-                        ui.showGoodbye();
-                        isExit = true;
-                        break;
-                    case "list":
-                        handleList();
-                        break;
-                    case "mark":
-                        handleMark(commandArgs);
-                        break;
-                    case "unmark":
-                        handleUnmark(commandArgs);
-                        break;
-                    case "todo":
-                        handleTodo(commandArgs);
-                        break;
-                    case "deadline":
-                        handleDeadline(commandArgs);
-                        break;
-                    case "event":
-                        handleEvent(commandArgs);
-                        break;
-                    case "delete":
-                        handleDelete(commandArgs);
-                        break;
-                    default:
-                        throw new UnknownCommandException();
+                case "bye":
+                    ui.showGoodbye();
+                    isExit = true;
+                    break;
+                case "list":
+                    handleList();
+                    break;
+                case "mark":
+                    handleMark(commandArgs);
+                    break;
+                case "unmark":
+                    handleUnmark(commandArgs);
+                    break;
+                case "todo":
+                    handleTodo(commandArgs);
+                    break;
+                case "deadline":
+                    handleDeadline(commandArgs);
+                    break;
+                case "event":
+                    handleEvent(commandArgs);
+                    break;
+                case "delete":
+                    handleDelete(commandArgs);
+                    break;
+                default:
+                    throw new UnknownCommandException();
                 }
             } catch (AdventureGuideException e) {
                 ui.showError(e.getMessage());
