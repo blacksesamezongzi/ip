@@ -1,10 +1,11 @@
-package data;
+package duke.data;
 
-import components.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.components.*;
 
 public class Storage {
     private static final String FILE_PATH = "./data/tasks.txt";

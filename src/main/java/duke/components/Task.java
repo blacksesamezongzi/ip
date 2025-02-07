@@ -1,4 +1,4 @@
-package components;
+package duke.components;
 
 public class Task {
     protected String description;

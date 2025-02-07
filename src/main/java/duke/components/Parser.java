@@ -1,6 +1,6 @@
-package components;
+package duke.components;
 
-import Exceptions.*;
+import duke.exceptions.*;
 
 public class Parser {
     public static String[] parse(String fullCommand) throws UnknownCommandException {

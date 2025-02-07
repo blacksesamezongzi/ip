@@ -1,9 +1,16 @@
-package components;
+package duke.ui;
 
 import java.io.IOException;
 import java.util.List;
-import Exceptions.*;
-import data.Storage;
+
+import duke.components.Deadline;
+import duke.components.Event;
+import duke.components.Parser;
+import duke.components.Task;
+import duke.components.TaskList;
+import duke.components.ToDo;
+import duke.data.Storage;
+import duke.exceptions.*;
 
 public class AdventureGuideBot {
     private TaskList tasks;

@@ -1,4 +1,4 @@
-package components;
+package duke.components;
 
 import java.util.ArrayList;
 import java.util.List;
