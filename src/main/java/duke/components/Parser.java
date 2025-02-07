@@ -27,6 +27,7 @@ public class Parser {
         case "deadline":
         case "event":
         case "delete":
+        case "find":
             return new String[] { commandWord, commandArgs };
         default:
             throw new UnknownCommandException();

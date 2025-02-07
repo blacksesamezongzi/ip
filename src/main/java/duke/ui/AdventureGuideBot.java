@@ -45,7 +45,7 @@ public class AdventureGuideBot {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                // ui.showLine();
+                ui.showLine();
                 String[] parsedCommand = Parser.parse(fullCommand);
                 String commandWord = parsedCommand[0];
                 String commandArgs = parsedCommand[1];
@@ -74,6 +74,9 @@ public class AdventureGuideBot {
                     break;
                 case "delete":
                     handleDelete(commandArgs);
+                    break;
+                case "find":
+                    handleFind(commandArgs);
                     break;
                 default:
                     throw new UnknownCommandException();
@@ -170,5 +173,14 @@ public class AdventureGuideBot {
         ui.showError("   " + removedTask);
         ui.showError(" Now you have " + tasks.size() + " tasks in the list.");
         storage.save(tasks.getTasks());
+    }
+
+    private void handleFind(String args) {
+        List<Task> matchingTasks = tasks.findTasks(args);
+        ui.showLine();
+        ui.showError(" Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            ui.showError(" " + (i + 1) + ". " + matchingTasks.get(i));
+        }
     }
 }
