@@ -19,17 +19,17 @@ public class Parser {
         String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
 
         switch (commandWord) {
-            case "bye":
-            case "list":
-            case "mark":
-            case "unmark":
-            case "todo":
-            case "deadline":
-            case "event":
-            case "delete":
-                return new String[] { commandWord, commandArgs };
-            default:
-                throw new UnknownCommandException();
+        case "bye":
+        case "list":
+        case "mark":
+        case "unmark":
+        case "todo":
+        case "deadline":
+        case "event":
+        case "delete":
+            return new String[] { commandWord, commandArgs };
+        default:
+            throw new UnknownCommandException();
         }
     }
 }

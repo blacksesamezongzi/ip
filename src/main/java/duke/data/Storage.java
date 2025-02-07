@@ -55,17 +55,17 @@ public class Storage {
             Task task = null;
             try {
                 switch (type) {
-                    case "T":
-                        task = new ToDo(description, isDone);
-                        break;
-                    case "D":
-                        task = new Deadline(description, taskComponents[3], isDone);
-                        break;
-                    case "E":
-                        task = new Event(description, taskComponents[3], taskComponents[4], isDone);
-                        break;
-                    default:
-                        throw new IOException("Invalid task type in file");
+                case "T":
+                    task = new ToDo(description, isDone);
+                    break;
+                case "D":
+                    task = new Deadline(description, taskComponents[3], isDone);
+                    break;
+                case "E":
+                    task = new Event(description, taskComponents[3], taskComponents[4], isDone);
+                    break;
+                default:
+                    throw new IOException("Invalid task type in file");
                 }
             } catch (Exception e) {
                 System.out.println("Error parsing line: " + input); // Debug statement
