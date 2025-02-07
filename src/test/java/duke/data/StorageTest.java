@@ -14,6 +14,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the Storage class.
+ */
 public class StorageTest {
     private Storage storage;
     private static final String TEST_FILE_PATH = "./data/test_tasks.txt";

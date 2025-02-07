@@ -12,11 +12,18 @@ import duke.components.ToDo;
 import duke.data.Storage;
 import duke.exceptions.*;
 
+/**
+ * The bot that interacts with the user and manages tasks.
+ */
 public class AdventureGuideBot {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Constructs an AdventureGuideBot and initializes the UI, storage, and task
+     * list.
+     */
     public AdventureGuideBot() {
         ui = new Ui();
         storage = new Storage();
@@ -29,6 +36,9 @@ public class AdventureGuideBot {
         }
     }
 
+    /**
+     * Starts the AdventureGuideBot to interact with the user.
+     */
     public void start() {
         ui.showWelcome();
         boolean isExit = false;
