@@ -1,27 +1,33 @@
 package components;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected String by;
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = LocalDate.parse(by);
+        this.by = by;
     }
 
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
-        this.by = LocalDate.parse(by);
+        this.by = by;
     }
 
     public String getBy() {
-        return by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return by;
+    }
+
+    public String getByPrint() {
+        LocalDateTime byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        return byDateTime.format(OUTPUT_FORMATTER);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.getBy() + ")";
+        return "[D]" + super.toString() + " (by: " + getByPrint() + ")";
     }
 }

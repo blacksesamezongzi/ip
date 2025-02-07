@@ -1,17 +1,10 @@
 package data;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import components.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import components.Deadline;
-import components.Event;
-import components.Task;
-import components.ToDo;
 
 public class Storage {
     private static final String FILE_PATH = "./data/tasks.txt";
@@ -28,23 +21,30 @@ public class Storage {
         Scanner sc = new Scanner(file);
         while (sc.hasNext()) {
             String input = sc.nextLine();
+            // System.out.println("Reading line: " + input); // Debug statement
             String[] taskComponents = input.split(" \\| ");
             String type = taskComponents[0];
             boolean isDone = taskComponents[1].equals("1");
             String description = taskComponents[2];
             Task task = null;
-            switch (type) {
-                case "T":
-                    task = new ToDo(description, isDone);
-                    break;
-                case "D":
-                    task = new Deadline(description, taskComponents[3], isDone);
-                    break;
-                case "E":
-                    task = new Event(description, taskComponents[3], taskComponents[4], isDone);
-                    break;
-                default:
-                    throw new IOException("Invalid task type in file");
+            try {
+                switch (type) {
+                    case "T":
+                        task = new ToDo(description, isDone);
+                        break;
+                    case "D":
+                        task = new Deadline(description, taskComponents[3], isDone);
+                        break;
+                    case "E":
+                        task = new Event(description, taskComponents[3], taskComponents[4], isDone);
+                        break;
+                    default:
+                        throw new IOException("Invalid task type in file");
+                }
+            } catch (Exception e) {
+                System.out.println("Error parsing line: " + input); // Debug statement
+                e.printStackTrace(); // Print stack trace for debugging
+                throw e;
             }
             tasks.add(task);
         }
