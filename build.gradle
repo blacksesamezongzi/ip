@@ -9,6 +9,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.openjfx:javafx-controls:17.0.1'
+    implementation 'org.openjfx:javafx-fxml:17.0.1'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
@@ -28,7 +30,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.AdventureGuide")
+    mainClass.set("duke.Main")
 }
 
 shadowJar {
