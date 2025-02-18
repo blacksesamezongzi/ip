@@ -92,6 +92,12 @@ public class AdventureGuideBot {
         }
     }
 
+
+    public String getResponse(String input) {
+        // a placeholder method for future expansion
+        return "Duke heard: " + input;
+    }
+
     private void handleList() {
         ui.showLine();
         ui.showError(" Here are the tasks in your list:");
