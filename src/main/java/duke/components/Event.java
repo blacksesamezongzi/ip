@@ -42,4 +42,8 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + getFromPrint() + " to: " + getToPrint() + ")";
     }
+
+    public static DateTimeFormatter getInputFormatter() {
+        return DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    }
 }

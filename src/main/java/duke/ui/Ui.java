@@ -1,66 +1,43 @@
 package duke.ui;
 
-import java.util.Scanner;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 
 /**
  * Performs interactions with the user.
  */
 public class Ui {
-    private Scanner sc;
-
+    private VBox dialogContainer;
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/AdventureGuide.jpg"));
     /**
-     * Constructs a Ui object and initializes the scanner.
+     * Constructs a Ui object and initializes the dialog container.
      */
     public Ui() {
-        sc = new Scanner(System.in);
+        this.dialogContainer = new VBox();
     }
 
     /**
      * Displays the welcome message.
      */
-    public void showWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm adventureGuide");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Displays a line separator.
-     */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Displays an error message.
-     *
-     * @param message The error message to display.
-     */
-    public void showError(String message) {
-        System.out.println(" " + message);
-    }
-
-    /**
-     * Reads a command from the user.
-     *
-     * @return The command entered by the user.
-     */
-    public String readCommand() {
-        return sc.nextLine();
+    public String showWelcome() {
+        return "Ah, a new challenger enters the maze! \nI'm here to help you map out your journey and keep your goals in sight. \nPlease tell me, what are your plans today?";
     }
 
     /**
      * Displays the goodbye message.
      */
     public void showGoodbye() {
-        System.out.println(" Bye. Hope to see you again soon!");
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog("Bye. Hope to see you again soon!", dukeImage));
     }
 
     /**
      * Displays the loading error message.
      */
     public void showLoadingError() {
-        System.out.println(" OOPS!!! An error occurred while loading tasks from file.");
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog("OOPS!!! An error occurred while loading tasks from file.", dukeImage));
+    }
+
+    public String getByeMessage() {
+        return "Farewell, adventurer! May your path be clear and your tasks conquered. Until our next quest!";
     }
 }

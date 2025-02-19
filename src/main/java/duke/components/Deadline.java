@@ -30,4 +30,8 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + getByPrint() + ")";
     }
+
+    public static DateTimeFormatter getInputFormatter() {
+        return DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    }
 }

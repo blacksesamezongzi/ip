@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.animation.PauseTransition;
 
 /**
  * Controller for the main GUI.
@@ -34,6 +37,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the AdventureGuideBot instance */
     public void setAdventureGuideBot(AdventureGuideBot bot) {
         this.bot = bot;
+        dialogContainer.getChildren().addAll(
+            DialogBox.getDukeDialog(bot.getUi().showWelcome(), dukeImage)
+        );
     }
 
     /**
@@ -43,11 +49,24 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+
+        if (input.equals("bye")) {
+            handleBye();
+        }
         String response = bot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+    }
+
+    private void handleBye() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> {
+            Stage stage = (Stage) dialogContainer.getScene().getWindow();
+            stage.close();
+        });
+        delay.play();
     }
 }
