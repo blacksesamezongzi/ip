@@ -1,8 +1,5 @@
 package duke.ui;
 
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
-
 /**
  * Performs interactions with the user.
  */
