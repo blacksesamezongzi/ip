@@ -16,7 +16,7 @@ It's,
 - ~~FAST~~ *SUPER FAST* to use
 	Manage your tasks efficiently with quick and responsive interactions.
 
-With Adventure Guide, you can keep your daily tasks organized in a ==fun and interactive== way. The bot provides responses in a chat format, just like a friend, making your task management more engaging and enjoyable.
+With Adventure Guide, you can keep your daily tasks organized in a *fun and interactive* way. The bot provides responses in a chat format, just like a friend, making your task management more engaging and enjoyable.
 
 ## Adding deadlines📚
 
