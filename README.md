@@ -1,6 +1,6 @@
 # Adventure Guide User Guide
 
-![Product Screenshot](Ui.png)
+![Product Screenshot](./docs/Ui.png)
 
 > "Life is a great adventure, or it is nothing."  — John Dewey ([Source](https://www.mymountainsandme.com/blog/adventure-quotes))
 
