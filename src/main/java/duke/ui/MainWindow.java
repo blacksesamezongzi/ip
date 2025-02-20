@@ -37,9 +37,8 @@ public class MainWindow extends AnchorPane {
     /** Injects the AdventureGuideBot instance */
     public void setAdventureGuideBot(AdventureGuideBot bot) {
         this.bot = bot;
-        dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog(bot.getUi().showWelcome(), dukeImage)
-        );
+        showWelcomeMessage();
+        handleLoadingError();
     }
 
     /**
@@ -49,16 +48,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-
-        if (input.equals("bye")) {
-            handleBye();
-        }
         String response = bot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
+        if (input.equals("bye")) {
+            handleBye();
+        }
+    }
+
+    private void showWelcomeMessage() {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(bot.getUi().showWelcome(), dukeImage));
     }
 
     private void handleBye() {
@@ -68,5 +71,15 @@ public class MainWindow extends AnchorPane {
             stage.close();
         });
         delay.play();
+    }
+
+    private void handleLoadingError() {
+        if (bot.getLoadingError() != null) {
+            dialogContainer.getChildren().add(DialogBox.getDukeDialog(bot.getLoadingError(), dukeImage));
+        }
+    }
+
+    public VBox getDialogContainer() {
+        return dialogContainer;
     }
 }
