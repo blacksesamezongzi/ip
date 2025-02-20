@@ -18,7 +18,7 @@ It's,
 
 With Adventure Guide, you can keep your daily tasks organized in a ==fun and interactive== way. The bot provides responses in a chat format, just like a friend, making your task management more engaging and enjoyable.
 
-## Adding deadlines
+## Adding deadlines📚
 
 You can add deadline with text prompt in this format:
 `deadline *task* /by *time*`
@@ -39,7 +39,7 @@ Now you have 2 tasks in the list.
 
 The output date will be in the format `MMM d yyyy HH:mm`
 
-## Adding Events
+## Adding Events🤹
 
 You can add event with text prompt in this format:
 `event *task* /from *time* /to *time`
@@ -61,7 +61,7 @@ Now you have 3 tasks in the list.
 
 The output date will be in the format `MMM d yyyy HH:mm`
 
-## Adding todo
+## Adding todo📍
 
 You can add todo with text prompt in this format:
 `todo *task*`
@@ -79,7 +79,7 @@ Now you have 4 tasks in the list.
 
 ```
 
-## Listing tasks
+## Listing tasks📤
 
 You can have an overview of the list of your tasks with text prompt:
 `list`
@@ -97,7 +97,7 @@ Here are the tasks in your list:
 ```
 
 
-## Deleting task
+## Deleting task🗑
 
 You can delete a task with text prompt in this format:
 `delete *task number*`
@@ -115,7 +115,7 @@ Now you have 3 tasks in the list.
 
 ```
 
-## Marking & Unmarking task
+## Marking & Unmarking task🖇
 
 You can mark a task as done or unmark a task with text prompt in these format respectively:
 `mark *task number*`
@@ -140,7 +140,7 @@ OK, I've marked this task as not done yet:
 [D][] return book (by: Feb 16 2025 18:00)
 ```
 
-## Tagging & Untagging task
+## Tagging & Untagging task📌
 
 You can tag a task or untag a task with text prompt in these format respectively:
 `tag *task number* *tag*`
@@ -163,7 +163,7 @@ After untagging task 1
 The tag #great has been removed from the task.
 ```
 
-## Finding a task
+## Finding a task🗃
 
 You can find a task with text prompt in these format respectively:
 `find *part of task name*`
@@ -179,6 +179,6 @@ Here are the matching tasks in your list:
 
 ```
 
-## Exit
+## Exit👋
 
 To exit the Adventure Guide, you can prompt the text `bye`, or simply click the `X` button on the upper-right corner.
