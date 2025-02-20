@@ -19,6 +19,7 @@ import duke.exceptions.*;
  * The bot that interacts with the user and manages tasks.
  */
 public class AdventureGuideBot {
+    private boolean isLoaded = true;
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
@@ -30,6 +31,7 @@ public class AdventureGuideBot {
      * list.
      */
     public AdventureGuideBot() {
+
         storage = new Storage();
         ui = new Ui();
         try {
@@ -37,6 +39,7 @@ public class AdventureGuideBot {
             tasks = new TaskList(loadedTasks);
         } catch (IOException e) {
             tasks = new TaskList();
+            isLoaded = false;
         }
     }
 
@@ -80,7 +83,7 @@ public class AdventureGuideBot {
     }
 
     public String getLoadingError() {
-        return "OOPS!!! An error occurred while loading tasks from file.";
+        return isLoaded ? null : "I'm sorry, but I couldn't load your tasks. Starting with an empty list instead.";
     }
 
     private String handleList() {
