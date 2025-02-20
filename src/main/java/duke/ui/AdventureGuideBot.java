@@ -176,7 +176,7 @@ public class AdventureGuideBot {
         String newTag = parts[1];
         tasks.getTask(taskIndex).setTag(newTag);
         storage.save(tasks.getTasks());
-        return hasTag ? "The tag #" + oldTag + " has been updated to #" + newTag : "A tag #" + newTag + " has been added to the task";
+        return hasTag ? "The tag #" + oldTag + " has been updated to #" + newTag : "A tag #" + newTag + " has been added to the task.";
     }
 
     private String handleUntag(String args) throws InvalidTaskNumberException, IOException {
