@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import duke.components.Deadline;
 import duke.components.Event;
@@ -26,8 +28,7 @@ public class AdventureGuideBot {
     private DateTimeFormatter DeadlineInputFormatter = Deadline.getInputFormatter();
 
     /**
-     * Constructs an AdventureGuideBot and initializes the UI, storage, and task
-     * list.
+     * Constructs an AdventureGuideBot and initializes the storage and task list.
      */
     public AdventureGuideBot() {
         storage = new Storage();
@@ -76,12 +77,10 @@ public class AdventureGuideBot {
         }
         
     private String handleList() {
-        String text = " Here are the tasks in your list:" + "\n";
-        for (int i = 0; i < tasks.size(); i++) {
-            text += " " + (i + 1) + ". " + tasks.getTask(i) + "\n";
-        }
-        return text;
-
+        return "Here are the tasks in your list:\n" +
+                IntStream.range(0, tasks.size())
+                        .mapToObj(i -> (i + 1) + ". " + tasks.getTask(i))
+                        .collect(Collectors.joining("\n"));
     }
 
     private String handleMark(String args) throws InvalidTaskNumberException, IOException {
