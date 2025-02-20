@@ -178,3 +178,7 @@ Here are the matching tasks in your list:
 1. [T][] borrow book
 
 ```
+
+## Exit
+
+To exit the Adventure Guide, you can prompt the text `bye`, or simply click the `X` button on the upper-right corner.
