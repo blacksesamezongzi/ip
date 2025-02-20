@@ -86,6 +86,7 @@ public class AdventureGuideBot {
 
     private String handleMark(String args) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(args) - 1;
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new InvalidTaskNumberException();
         }
@@ -97,6 +98,7 @@ public class AdventureGuideBot {
 
     private String handleUnmark(String args) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(args) - 1;
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new InvalidTaskNumberException();
         }
@@ -106,6 +108,7 @@ public class AdventureGuideBot {
     }
 
     private String handleTodo(String args) throws EmptyDescriptionException, IOException {
+        assert args != null : "Task description cannot be null";
         if (args.isEmpty()) {
             throw new EmptyDescriptionException("todo");
         }
@@ -118,6 +121,7 @@ public class AdventureGuideBot {
 
     private String handleDeadline(String args) throws EmptyDescriptionException, InvalidDateFormatException, IOException {
         String[] parts = args.split(" /by ");
+        assert parts.length == 2 : "Invalid deadline format";
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
             throw new EmptyDescriptionException("deadline");
         } 
@@ -135,6 +139,7 @@ public class AdventureGuideBot {
 
     private String handleEvent(String args) throws EmptyDescriptionException, InvalidDateFormatException, IOException {
         String[] parts = args.split(" /from | /to ");
+        assert parts.length == 3 : "Invalid event format";
         if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
             throw new EmptyDescriptionException("event");
         }
@@ -153,6 +158,7 @@ public class AdventureGuideBot {
 
     private String handleDelete(String args) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(args) - 1;
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new InvalidTaskNumberException();
         }
