@@ -36,7 +36,7 @@ public class AdventureGuideBot {
             List<Task> loadedTasks = storage.load();
             tasks = new TaskList(loadedTasks);
         } catch (IOException e) {
-            ui.showLoadingError();
+            tasks = new TaskList();
         }
     }
 
