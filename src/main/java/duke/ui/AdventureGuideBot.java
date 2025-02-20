@@ -96,6 +96,7 @@ public class AdventureGuideBot {
 
     private String handleMark(String args) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(args) - 1;
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
         validateTaskIndex(taskIndex);
         tasks.getTask(taskIndex).markAsDone();
         storage.save(tasks.getTasks());
@@ -104,6 +105,7 @@ public class AdventureGuideBot {
 
     private String handleUnmark(String args) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(args) - 1;
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
         validateTaskIndex(taskIndex);
         tasks.getTask(taskIndex).markAsNotDone();
         storage.save(tasks.getTasks());
@@ -111,6 +113,7 @@ public class AdventureGuideBot {
     }
 
     private String handleTodo(String args) throws EmptyDescriptionException, IOException {
+        assert args != null : "Task description cannot be null";
         validateDescription(args, "todo");
         Task task = new ToDo(args);
         tasks.addTask(task);
@@ -120,7 +123,9 @@ public class AdventureGuideBot {
 
     private String handleDeadline(String args) throws EmptyDescriptionException, InvalidDateFormatException, IOException {
         String[] parts = args.split(" /by ");
+        assert parts.length == 2 : "Invalid deadline format";
         validateDeadlineOrEvent(parts, "deadline");
+        tasks.addTask(new Deadline(parts[0].trim(), parts[1].trim()));
         Task task = new Deadline(parts[0].trim(), parts[1].trim());
         tasks.addTask(task);
         storage.save(tasks.getTasks());
@@ -129,6 +134,7 @@ public class AdventureGuideBot {
 
     private String handleEvent(String args) throws EmptyDescriptionException, InvalidDateFormatException, IOException {
         String[] parts = args.split(" /from | /to ");
+        assert parts.length == 3 : "Invalid event format";
         validateDeadlineOrEvent(parts, "event");
         Task task = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
         tasks.addTask(task);
@@ -138,6 +144,7 @@ public class AdventureGuideBot {
 
     private String handleDelete(String args) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(args) - 1;
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
         validateTaskIndex(taskIndex);
         Task removedTask = tasks.removeTask(taskIndex);
         storage.save(tasks.getTasks());
