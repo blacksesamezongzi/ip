@@ -24,6 +24,7 @@ public class AdventureGuide extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setAdventureGuideBot(bot);
+            stage.setTitle("Adventure Guide");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
