@@ -78,6 +78,10 @@ public class AdventureGuideBot {
             return handleDelete(commandArgs);
         case "find":
             return handleFind(commandArgs);
+        case "tag":
+            return handleTag(commandArgs);
+        case "untag":
+            return handleUntag(commandArgs);
         default:
             throw new UnknownCommandException();
         }
@@ -161,6 +165,35 @@ public class AdventureGuideBot {
         return response.toString();
     }
 
+    private String handleTag(String args) throws InvalidTaskNumberException, EmptyDescriptionException, IOException {
+        String[] parts = args.split(" ");
+        int taskIndex = Integer.parseInt(parts[0]) - 1;
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
+        validateTaskIndex(taskIndex);
+        boolean hasTag = tasks.getTask(taskIndex).hasTag();
+        String oldTag = hasTag ? tasks.getTask(taskIndex).getTag() : "no tag";
+        validateNonEmptyTag(parts);
+        String newTag = parts[1];
+        tasks.getTask(taskIndex).setTag(newTag);
+        storage.save(tasks.getTasks());
+        return hasTag ? "The tag #" + oldTag + " has been updated to #" + newTag : "A tag #" + newTag + " has been added to the task";
+    }
+
+    private String handleUntag(String args) throws InvalidTaskNumberException, IOException {
+        int taskIndex = Integer.parseInt(args) - 1;
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
+        validateTaskIndex(taskIndex);
+        boolean hasTag = tasks.getTask(taskIndex).hasTag();
+        if (!hasTag) {
+            return "This task does not have a tag.";
+        } else {
+            String oldTag = tasks.getTask(taskIndex).getTag();
+            tasks.getTask(taskIndex).setTag(null);
+            storage.save(tasks.getTasks());
+            return "The tag #" + oldTag + " has been removed from the task.";
+        }
+    }
+
     private void validateTaskIndex(int taskIndex) throws InvalidTaskNumberException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new InvalidTaskNumberException();
@@ -188,6 +221,12 @@ public class AdventureGuideBot {
             }
         } catch (DateTimeParseException e) {
             throw new InvalidDateFormatException();
+        }
+    }
+
+    private void validateNonEmptyTag(String[] parts) throws EmptyDescriptionException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new EmptyDescriptionException("tag");
         }
     }
 

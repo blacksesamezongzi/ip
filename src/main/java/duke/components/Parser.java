@@ -28,6 +28,8 @@ public class Parser {
         case "event":
         case "delete":
         case "find":
+        case "tag":
+        case "untag":
             return new String[] { commandWord, commandArgs };
         default:
             throw new UnknownCommandException();
