@@ -47,7 +47,6 @@ public class Storage {
         Scanner sc = new Scanner(file);
         while (sc.hasNext()) {
             String input = sc.nextLine();
-            // System.out.println("Reading line: " + input); // Debug statement
             String[] taskComponents = input.split(" \\| ");
             String type = taskComponents[0];
             boolean isDone = taskComponents[1].equals("1");
