@@ -16,6 +16,12 @@ public class AdventureGuide extends Application {
 
     private AdventureGuideBot bot = new AdventureGuideBot();
 
+    /**
+     * Starts the AdventureGuide application.
+     * 
+     * @param stage The stage to display the application.
+     * @throws IOException If an input or output exception occurred.
+     */
     @Override
     public void start(Stage stage) {
         try {

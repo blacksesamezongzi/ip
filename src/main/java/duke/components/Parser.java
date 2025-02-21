@@ -7,11 +7,11 @@ import duke.exceptions.*;
  */
 public class Parser {
     /**
-     * Parses the full command entered by the user.
+     * Parses the given full command string and splits it into the command word and its arguments.
      *
-     * @param fullCommand The full command entered by the user.
-     * @return An array containing the command word and command arguments.
-     * @throws UnknownCommandException If the command is unknown.
+     * @param fullCommand The full command string to be parsed.
+     * @return A string array where the first element is the command word and the second element is the command arguments.
+     * @throws UnknownCommandException If the command word is not recognized.
      */
     public static String[] parse(String fullCommand) throws UnknownCommandException {
         String[] commandParts = fullCommand.split(" ", 2);

@@ -44,6 +44,12 @@ public class AdventureGuideBot {
         }
     }
 
+    /**
+     * Returns the response to the user input.
+     * 
+     * @param input The user input.
+     * @return The response to the user input.
+     */
     public String getResponse(String input) {
         try {
             String[] parsedCommand = Parser.parse(input);
@@ -58,6 +64,15 @@ public class AdventureGuideBot {
         }
     }
 
+    /**
+     * Executes the command based on the command word and arguments.
+     * 
+     * @param commandWord The command word.
+     * @param commandArgs The command arguments.
+     * @return The response to the command.
+     * @throws AdventureGuideException If an error occurs during command execution.
+     * @throws IOException If an error occurs during file operations.
+     */
     private String executeCommand(String commandWord, String commandArgs) throws AdventureGuideException, IOException {
         switch (commandWord) {
         case "bye":
@@ -91,6 +106,11 @@ public class AdventureGuideBot {
         return isLoaded ? null : "I'm sorry, but I couldn't load your tasks. Starting with an empty list instead.";
     }
 
+    /**
+     * Handles the "list" command.
+     * 
+     * @return The response to the "list" command, listing all tasks.
+     */
     private String handleList() {
         return "Here are the tasks in your list:\n" +
                 IntStream.range(0, tasks.size())
@@ -99,6 +119,13 @@ public class AdventureGuideBot {
 
     }
 
+    /**
+     * Handles the "mark" command.
+     * 
+     * @param args The task number to mark as done.
+     * @return The response to the "mark" command, marking the task as done.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
     private String handleMark(String args) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(args) - 1;
         assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
@@ -108,6 +135,13 @@ public class AdventureGuideBot {
         return "Nice! I've marked this task as done:\n" + tasks.getTask(taskIndex);
     }
 
+    /**
+     * Handles the "unmark" command.
+     * 
+     * @param args The task number to mark as not done.
+     * @return The response to the "unmark" command, marking the task as not done.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     */
     private String handleUnmark(String args) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(args) - 1;
         assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
@@ -117,6 +151,13 @@ public class AdventureGuideBot {
         return "OK, I've marked this task as not done yet:\n" + tasks.getTask(taskIndex);
     }
 
+    /**
+     * Handles the "todo" command.
+     * 
+     * @param args The description of the todo task.
+     * @return The response to the "todo" command, adding the todo task.
+     * @throws EmptyDescriptionException If the task description is empty.
+     */
     private String handleTodo(String args) throws EmptyDescriptionException, IOException {
         assert args != null : "Task description cannot be null";
         validateDescription(args, "todo");
@@ -126,6 +167,15 @@ public class AdventureGuideBot {
         return "Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
+    /**
+     * Handles the "deadline" command.
+     * 
+     * @param args The description and deadline of the deadline task.
+     * @return The response to the "deadline" command, adding the deadline task.
+     * @throws EmptyDescriptionException If the task description is empty.
+     * @throws InvalidDateFormatException If the deadline format is invalid.
+     * @throws IOException If an error occurs during file operations.
+     */
     private String handleDeadline(String args) throws EmptyDescriptionException, InvalidDateFormatException, IOException {
         String[] parts = args.split(" /by ");
         assert parts.length == 2 : "Invalid deadline format";
@@ -137,6 +187,15 @@ public class AdventureGuideBot {
         return "Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
+    /**
+     * Handles the event command.
+     * 
+     * @param args The description and event time of the event task.
+     * @return The response to event command, adding the event task.
+     * @throws EmptyDescriptionException If the task description is empty.
+     * @throws InvalidDateFormatException If the event format is invalid.
+     * @throws IOException If an error occurs during file operations.
+     */
     private String handleEvent(String args) throws EmptyDescriptionException, InvalidDateFormatException, IOException {
         String[] parts = args.split(" /from | /to ");
         assert parts.length == 3 : "Invalid event format";
@@ -147,6 +206,14 @@ public class AdventureGuideBot {
         return "Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
+    /**
+     * Handles the "delete" command.
+     * 
+     * @param args The task number to delete.
+     * @return The response to the "delete" command, deleting the task.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     * @throws IOException If an error occurs during file operations.
+     */
     private String handleDelete(String args) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(args) - 1;
         assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
@@ -156,6 +223,12 @@ public class AdventureGuideBot {
         return "Noted. I've removed this task:\n" + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
+    /**
+     * Handles the "find" command.
+     * 
+     * @param args The keyword to search for.
+     * @return The response to the "find" command, listing the matching tasks.
+     */
     private String handleFind(String args) {
         List<Task> matchingTasks = tasks.findTasks(args);
         StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
@@ -165,6 +238,15 @@ public class AdventureGuideBot {
         return response.toString();
     }
 
+    /**
+     * Handles the "tag" command.
+     * 
+     * @param args The task number and tag to add.
+     * @return The response to the "tag" command, adding the tag to the task if tag is not already present, else updating the tag.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     * @throws EmptyDescriptionException If the tag is empty.
+     * @throws IOException If an error occurs during file operations.
+     */
     private String handleTag(String args) throws InvalidTaskNumberException, EmptyDescriptionException, IOException {
         String[] parts = args.split(" ");
         int taskIndex = Integer.parseInt(parts[0]) - 1;
@@ -179,6 +261,14 @@ public class AdventureGuideBot {
         return hasTag ? "The tag #" + oldTag + " has been updated to #" + newTag : "A tag #" + newTag + " has been added to the task.";
     }
 
+    /**
+     * Handles the "untag" command.
+     * 
+     * @param args The task number to remove the tag from.
+     * @return The response to the "untag" command, removing the tag from the task.
+     * @throws InvalidTaskNumberException If the task number is invalid.
+     * @throws IOException If an error occurs during file operations.
+     */
     private String handleUntag(String args) throws InvalidTaskNumberException, IOException {
         int taskIndex = Integer.parseInt(args) - 1;
         assert taskIndex >= 0 && taskIndex < tasks.size() : "Invalid task index";
