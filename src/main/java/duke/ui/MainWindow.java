@@ -49,7 +49,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bot.getResponse(input);
-        dialogContainer.getChildren().addAll(
+        addDialogBoxes(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
@@ -58,6 +58,15 @@ public class MainWindow extends AnchorPane {
         if (input.equals("bye")) {
             handleBye();
         }
+    }
+
+    /**
+     * Adds multiple dialog boxes to the dialog container.
+     *
+     * @param dialogBoxes The dialog boxes to add.
+     */
+    private void addDialogBoxes(DialogBox... dialogBoxes) {
+        dialogContainer.getChildren().addAll(dialogBoxes);
     }
 
     private void showWelcomeMessage() {
